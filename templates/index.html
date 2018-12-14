@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Flask in Crontab</title>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+    <style type="text/css">
+    	.login-container{
+		    margin-top: 5%;
+		    margin-bottom: 5%;
+		}
+		.login-form-1{
+		    padding: 5%;
+		    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+		}
+		.login-form-1 h3{
+		    text-align: center;
+		    color: #333;
+		}
+		.login-form-2{
+		    padding: 5%;
+		    background: #0062cc;
+		    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+		}
+		.login-form-2 h3{
+		    text-align: center;
+		    color: #fff;
+		}
+		.login-container form{
+		    padding: 10%;
+		}
+		.btnSubmit
+		{
+		    width: 50%;
+		    border-radius: 1rem;
+		    padding: 1.5%;
+		    border: none;
+		    cursor: pointer;
+		}
+		.login-form-1 .btnSubmit{
+		    font-weight: 600;
+		    color: #fff;
+		    background-color: #0062cc;
+		}
+		.login-form-2 .btnSubmit{
+		    font-weight: 600;
+		    color: #0062cc;
+		    background-color: #fff;
+		}
+		.login-form-2 .ForgetPwd{
+		    color: #fff;
+		    font-weight: 600;
+		    text-decoration: none;
+		}
+		.login-form-1 .ForgetPwd{
+		    color: #0062cc;
+		    font-weight: 600;
+		    text-decoration: none;
+		}
+
+    </style>
+</head>
+<body>
+	<div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Login with Form Action</h3>
+                    <form action="/form_action" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="username" class="form-control" placeholder="Your Email *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" />
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 login-form-2">
+                    <h3>Login with Ajax</h3>
+                    <div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Email *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Your Password *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" id="ajaxBTNSubmit" class="btnSubmit" value="Login" />
+                        </div>
+                        <div class="form-group">
+
+                            <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <script type="text/javascript">
+    	$("#ajaxBTNSubmit").click(function(){
+
+    		$.ajax({
+			  type: "POST",
+			  url: "/ajax_action",
+			  data: JSON.stringify({"name":"manivannan"}),
+			  contentType: 'application/json',
+			  success: function(data){
+			  	console.log(data)
+			  	if(data == "success")
+			  		location.href="/success"
+			  },
+			  error: function(error){
+			  	console.log(error)
+			  }
+			  
+			});
+    	})
+    </script>
+</body>
+</html>
